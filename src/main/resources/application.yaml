@@ -1,0 +1,36 @@
+logging:
+  level:
+    org.hibernate.orm.jdbc.bind: trace
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/multitenantdemo?allowPublicKeyRetrieval=true
+    username: ${MYSQL_USERNAME:root}
+    password: ${MYSQL_PASSWORD:1234}
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+
+tenant:
+  enabled: true
+  resolver:
+    strategy: header
+  jpa:
+    filter-name: tenantFilter
+    tenant-column: tenant_id
+  mybatis:
+    tenant-column: tenant_id
+  logging:
+    mdc-key: tenantId
+
+mybatis:
+  mapper-locations: classpath*:mappers/**/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
