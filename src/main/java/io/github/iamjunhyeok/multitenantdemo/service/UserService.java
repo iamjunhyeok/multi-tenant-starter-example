@@ -19,6 +19,14 @@ public class UserService {
   public List<User> getUsers() {
     List<User> usingJpa = userRepository.findAll();
     List<User> usingMyBatis = userMapper.findAll();
+
+    final String username = "test";
+    userRepository.findByUsername(username).ifPresent(user -> {
+      System.out.println("Found user: " + user.getUsername());
+    });
+    userMapper.findByUsername(username).ifPresent(user -> {
+      System.out.println("Found user: " + user.getUsername());
+    });
     return usingJpa; // or usingMyBatis
   }
 }

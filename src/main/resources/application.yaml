@@ -22,13 +22,16 @@ tenant:
   enabled: true
   resolver:
     strategy: header
-  jpa:
-    filter-name: tenantFilter
-    tenant-column: tenant_id
-  mybatis:
-    tenant-column: tenant_id
+  filter:
+    exclude-paths:
+      - /actuator/**
+      - /favicon.ico
+    order: 1
   logging:
     mdc-key: tenantId
+  id:
+    max-length: 50
+    pattern: ^[a-zA-Z0-9_-]+$
 
 mybatis:
   mapper-locations: classpath*:mappers/**/*.xml

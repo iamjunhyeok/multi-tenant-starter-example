@@ -6,4 +6,8 @@
   <select id="findAll" resultType="io.github.iamjunhyeok.multitenantdemo.domain.User">
     select id, username, password from users
   </select>
+
+  <select id="findByUsername" resultType="io.github.iamjunhyeok.multitenantdemo.domain.User">
+    select id, username, password from users where username = #{username}
+  </select>
 </mapper>
